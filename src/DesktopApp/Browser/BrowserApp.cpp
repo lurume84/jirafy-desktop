@@ -78,7 +78,7 @@ namespace desktop { namespace ui{
 		// Pass additional command-line flags to the browser process.
 		if (process_type.empty())
 		{
-			//command_line->AppendSwitch("disable-gpu");
+			command_line->AppendSwitchWithValue("disable-web-security", "true");
 		}
 	}
 }}

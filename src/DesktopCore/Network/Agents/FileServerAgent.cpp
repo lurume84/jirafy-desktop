@@ -116,6 +116,37 @@ namespace desktop { namespace core { namespace agent {
 
 	void FileServerAgent::handlePOST(web::http::http_request request)
 	{
+		using namespace web::http;
 
+		auto bodyws = request.request_uri().path();
+
+		std::string body(bodyws.begin(), bodyws.end());
+
+		body = boost::replace_all_copy(body, "/", "\\");
+
+		boost::filesystem::path path(m_folder + body);
+
+		if (path.extension() == ".json")
+		{
+			std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+			std::wstring pathws = converter.from_bytes(path.string());
+
+			std::wstring payload = request.extract_string().get();
+
+			concurrency::streams::fstream::open_ostream(pathws)
+				.then([=](concurrency::streams::ostream os)
+			{
+				std::string out(payload.begin(), payload.end());
+
+				concurrency::streams::container_buffer<std::string> rbuf(out);
+				os.write(rbuf, payload.size());
+
+				request.reply(status_codes::OK, L"{}");
+			});
+		}
+		else
+		{
+			request.reply(status_codes::NotFound);
+		}
 	}
 }}}
