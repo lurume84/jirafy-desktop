@@ -4,6 +4,7 @@
 #include "Toast/Toast.h"
 #include "Toast/ToastPayload.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
+#include "DesktopCore\System\Services\IniFileService.h"
 
 #include <boost\filesystem.hpp>
 #include <boost\filesystem\operations.hpp>
@@ -48,7 +49,9 @@ BOOL DesktopAppDlg::OnInitDialog()
 
   if (boost::filesystem::exists(applicationService.getViewerFolder() + "/index.html"))
   {
-	  url = boost::filesystem::canonical(applicationService.getViewerFolder() + "/index.html").string();
+	  desktop::core::service::IniFileService iniFileService;
+	  
+	  url = iniFileService.get<std::string>(applicationService.getMyDocuments() + "Jirafy.ini", "FileServer", "Endpoint", "http://127.0.0.1:9292/");
   }
   else
   {

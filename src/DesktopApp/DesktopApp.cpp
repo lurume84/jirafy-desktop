@@ -8,6 +8,7 @@
 #include "DesktopCore\DesktopCore.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeViewerAgent.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeDesktopAgent.h"
+#include "DesktopCore\Network\Agents\FileServerAgent.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 #include "DesktopCore\System\Services\CrashReportService.h"
 #include "Services\DownloadViewerService.h"
@@ -115,7 +116,7 @@ std::string DesktopApp::onBrowserCreated(CefRefPtr<CefBrowser> browser)
 	m_core->initialize();
 
 	m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
-	//m_core->addAgent(std::make_unique<desktop::core::agent::UpgradeDesktopAgent>(std::make_unique<desktop::ui::service::DownloadDesktopService>(browser)));
+	m_core->addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
 	
 	desktop::core::service::ApplicationDataService service;
 	auto documents = service.getMyDocuments();
