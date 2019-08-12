@@ -133,16 +133,15 @@ namespace desktop { namespace core { namespace agent {
 
 			std::wstring payload = request.extract_string().get();
 
-			concurrency::streams::fstream::open_ostream(pathws)
-				.then([=](concurrency::streams::ostream os)
-			{
-				std::string out(payload.begin(), payload.end());
+			std::unique_lock<std::mutex> lock(m_mutex);
 
-				concurrency::streams::container_buffer<std::string> rbuf(out);
-				os.write(rbuf, payload.size());
+			std::string out(payload.begin(), payload.end());
 
-				request.reply(status_codes::OK, L"{}");
-			});
+			std::ofstream f(path.string());
+			f << out;
+			f.close();
+
+			request.reply(status_codes::OK, L"{}");
 		}
 		else
 		{

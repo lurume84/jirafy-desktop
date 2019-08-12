@@ -30,5 +30,7 @@ namespace desktop { namespace core {
 		std::string															m_endpoint;
 		std::unique_ptr<web::http::experimental::listener::http_listener>	m_listener;
 		std::string															m_folder;
+
+		std::mutex															m_mutex;
 	};
 }}}
