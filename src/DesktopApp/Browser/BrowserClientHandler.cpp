@@ -118,7 +118,7 @@ namespace desktop { namespace ui{
 		{
 		}*/
 
-		model->Clear();
+		//model->Clear();
 
 		// call parent
 		CefContextMenuHandler::OnBeforeContextMenu(browser, frame, params, model);
