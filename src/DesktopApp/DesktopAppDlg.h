@@ -1,8 +1,10 @@
 #pragma once
 
+#include <afxdialogex.h>
+
 #include "Browser\BrowserScreen.h"
 
-class DesktopAppDlg : public CDialog
+class DesktopAppDlg : public CDialogEx
 {
 public:
 //Constructors / Destructors
@@ -34,6 +36,10 @@ protected:
 //Message handlers
   afx_msg void OnPaint();
   afx_msg HCURSOR OnQueryDragIcon();
+  afx_msg void OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS* lpncsp);
+  afx_msg BOOL OnNcActivate(BOOL bActive);
+  afx_msg void OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized);
+  afx_msg LRESULT OnNcHitTest(CPoint point);
   afx_msg void OnChangePayload();
   afx_msg void OnClickedClear();
   afx_msg void OnSize(UINT, int, int);

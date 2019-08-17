@@ -10,7 +10,7 @@
 #include <boost\filesystem\operations.hpp>
 
 DesktopAppDlg::DesktopAppDlg(_In_opt_ CWnd* pParent)
-: CDialog(DesktopAppDlg::IDD, pParent)
+: CDialogEx(DesktopAppDlg::IDD, pParent)
 {
 
 }
@@ -26,9 +26,13 @@ void DesktopAppDlg::DoDataExchange(CDataExchange* pDX)
   DDX_Control(pDX, IDC_MESSAGES, m_wndStatusMessages);*/
 }
 
-BEGIN_MESSAGE_MAP(DesktopAppDlg, CDialog)
+BEGIN_MESSAGE_MAP(DesktopAppDlg, CDialogEx)
   ON_WM_PAINT()
   ON_WM_SIZE()
+  ON_WM_NCACTIVATE()
+  ON_WM_ACTIVATE()
+  ON_WM_NCCALCSIZE()
+  ON_WM_NCHITTEST()
   ON_WM_QUERYDRAGICON()
   /*
   ON_EN_CHANGE(IDC_PAYLOAD, &DesktopAppDlg::OnChangePayload)
@@ -39,9 +43,9 @@ BOOL DesktopAppDlg::OnInitDialog()
 {
   //Let the base class do its thing
   __super::OnInitDialog();
-
-  SetIcon(m_hIcon, TRUE);
-  SetIcon(m_hIcon, FALSE);
+  
+  /*MARGINS m{ 0, 0, 0, 0 };
+  DwmExtendFrameIntoClientArea(m_hWnd, &m);*/
   
   std::string url;
 
@@ -61,7 +65,18 @@ BOOL DesktopAppDlg::OnInitDialog()
   m_browser_dlg = std::make_unique<desktop::ui::BrowserScreen>(url, this);
   m_browser_dlg->Create(desktop::ui::BrowserScreen::IDD, this);
 
-  ShowWindow(SW_MAXIMIZE);
+  // Force the system to recalculate NC area (making it send WM_NCCALCSIZE).
+  /*SetWindowPos(nullptr, 0, 0, 0, 0,
+	  SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);*/
+  LONG lStyle = GetWindowLong(m_hWnd, GWL_STYLE);
+  lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_SYSMENU);
+  SetWindowLong(m_hWnd, GWL_STYLE, lStyle);
+  LONG lExStyle = GetWindowLong(m_hWnd, GWL_EXSTYLE);
+  lExStyle &= ~(WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE);
+  SetWindowLong(m_hWnd, GWL_EXSTYLE, lExStyle);
+  SetWindowPos(NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
+
+ ShowWindow(SW_RESTORE);
 
   return TRUE;
 }
@@ -173,10 +188,57 @@ void DesktopAppDlg::OnClickedClear()
   m_wndStatusMessages.SetWindowText(_T(""));
 }
 
-void DesktopAppDlg::OnSize(UINT /*nType*/, int cx, int cy)
+void DesktopAppDlg::OnSize(UINT nType, int cx, int cy)
 {
+	if (nType == SIZE_MAXIMIZED ||
+		nType == SIZE_RESTORED)
+	{
+		OnNcPaint();
+	}
+
 	if (m_browser_dlg->GetSafeHwnd() != NULL)
 	{
 		m_browser_dlg->MoveWindow(0, 0, cx, cy);
 	}
+}
+
+void DesktopAppDlg::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS* lpncsp)
+{
+	/*if (bCalcValidRects == TRUE)
+	{
+		
+		RECT rcNewWnd;
+		CopyRect(&rcNewWnd, &lpncsp->rgrc[0]);
+
+		RECT rcNewClient;
+		rcNewClient.top = rcNewWnd.top + 0;
+		rcNewClient.bottom = rcNewWnd.bottom - 0;
+		rcNewClient.left = rcNewWnd.left + 0;
+		rcNewClient.right = rcNewWnd.right - 0;
+
+		CopyRect(&lpncsp->rgrc[0], &rcNewClient);
+
+		OnSize(SIZE_RESTORED, rcNewWnd.right, rcNewWnd.bottom);
+	}
+	*/
+	CDialogEx::OnNcCalcSize(bCalcValidRects, lpncsp);
+}
+
+LRESULT DesktopAppDlg::OnNcHitTest(CPoint point)
+{
+	SetWindowLong(m_hWnd, DWL_MSGRESULT, HTCAPTION);
+	return S_OK;
+}
+
+BOOL DesktopAppDlg::OnNcActivate(BOOL bActive)
+{
+	OnNcPaint();
+	return TRUE;
+}
+
+void DesktopAppDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
+{
+	CDialogEx::OnActivate(nState, pWndOther, bMinimized);
+
+	OnNcPaint();
 }
