@@ -3,6 +3,7 @@
 #include <afxdialogex.h>
 
 #include "Browser\BrowserScreen.h"
+#include "DesktopAppFrame.h"
 
 class DesktopAppDlg : public CDialogEx
 {
@@ -25,6 +26,7 @@ protected:
   CEdit m_wndStatusMessages;
 
   std::unique_ptr<desktop::ui::BrowserScreen> m_browser_dlg;
+  std::unique_ptr<DesktopAppFrame> m_frame;
 
 //Methods
   static CStringW FixUpImagesInXML(_In_ const CStringW& sXML);

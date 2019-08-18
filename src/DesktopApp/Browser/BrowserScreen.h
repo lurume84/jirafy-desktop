@@ -49,6 +49,7 @@ namespace desktop { namespace ui{
 
 		afx_msg LRESULT OnKeyBoardHook(WPARAM wParam, LPARAM lParam);
 		afx_msg void OnSize(UINT, int, int);
+		afx_msg BOOL OnReflect(NMHDR * pNotifyStruct, LRESULT* result);
 		DECLARE_MESSAGE_MAP()
 	private:
 	// Overrides

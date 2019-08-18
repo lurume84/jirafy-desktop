@@ -407,7 +407,9 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
     <ClInclude Include="Browser\Resources\IResourceManager.h" />
     <ClInclude Include="Browser\Resources\RequestResourceProvider.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="DesktopAppFrame.h" />
     <ClInclude Include="Events.h" />
+    <ClInclude Include="FrameWindow.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Services\DownloadDesktopService.h" />
     <ClInclude Include="Services\DownloadViewerService.h" />
@@ -431,6 +433,8 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
     <ClCompile Include="Browser\Resources\ExternalResourceManager.cpp" />
     <ClCompile Include="Browser\Resources\InternalResourceManager.cpp" />
     <ClCompile Include="Browser\Resources\RequestResourceProvider.cpp" />
+    <ClCompile Include="DesktopAppFrame.cpp" />
+    <ClCompile Include="FrameWindow.cpp" />
     <ClCompile Include="Services\DownloadDesktopService.cpp" />
     <ClCompile Include="Services\DownloadViewerService.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -454,6 +458,7 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
   <ItemGroup>
     <Image Include="res\DesktopApp.ico" />
     <Image Include="res\logo.ico" />
+    <Image Include="res\toolbar1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DesktopCore\DesktopCore.vcxproj">

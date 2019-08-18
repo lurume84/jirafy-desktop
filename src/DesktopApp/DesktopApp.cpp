@@ -2,6 +2,7 @@
 
 #include "DesktopApp.h"
 #include "DesktopAppDlg.h"
+#include "DesktopAppFrame.h"
 
 #include "Toast\ToastCommandLineInfo.h"
 #include "Agents\NotificationAgent.h"
@@ -15,6 +16,7 @@
 #include "Services\DownloadDesktopService.h"
 
 #include <boost/optional.hpp>
+#include <afxdisp.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -89,18 +91,29 @@ BOOL DesktopApp::InitInstance()
 	m_cefApp->initialize();
 
     //Bring up the main dialog
-    DesktopAppDlg mainDlg;
-    m_pMainWnd = &mainDlg;
-    mainDlg.DoModal();
+	DesktopAppFrame* mainDlg = new DesktopAppFrame;
+	if (!mainDlg)
+		return FALSE;
 
-	CefShutdown();
+    m_pMainWnd = mainDlg;
+	mainDlg->LoadFrame(IDR_MAINFRAME,
+		0, NULL,
+		NULL);
 
-  return FALSE;
+	m_pMainWnd->GetMenu()->Detach();
+	m_pMainWnd->SetMenu(NULL);
+
+	// The one and only window has been initialized, so show and update it
+	mainDlg->ShowWindow(SW_SHOW);
+	mainDlg->UpdateWindow();
+
+  return TRUE;
 }
 
 int DesktopApp::ExitInstance()
 {
 	m_core.reset();
+	CefShutdown();
 
   __super::ExitInstance();
   return m_nExitCode;

@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "DesktopApp.h"
 #include "DesktopAppDlg.h"
-#include "Toast/Toast.h"
-#include "Toast/ToastPayload.h"
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 #include "DesktopCore\System\Services\IniFileService.h"
 
@@ -65,17 +63,29 @@ BOOL DesktopAppDlg::OnInitDialog()
   m_browser_dlg = std::make_unique<desktop::ui::BrowserScreen>(url, this);
   m_browser_dlg->Create(desktop::ui::BrowserScreen::IDD, this);
 
+  m_frame = std::make_unique<DesktopAppFrame>();
+  m_frame->LoadFrame(IDR_MAINFRAME,
+	  0, NULL,
+	  NULL);
+
+  m_frame->GetMenu()->Detach();
+  m_frame->SetMenu(NULL);
+
+  // The one and only window has been initialized, so show and update it
+  m_frame->ShowWindow(SW_SHOW);
+  m_frame->UpdateWindow();
+
   // Force the system to recalculate NC area (making it send WM_NCCALCSIZE).
   /*SetWindowPos(nullptr, 0, 0, 0, 0,
 	  SWP_NOZORDER | SWP_NOOWNERZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);*/
-  LONG lStyle = GetWindowLong(m_hWnd, GWL_STYLE);
+  /*LONG lStyle = GetWindowLong(m_hWnd, GWL_STYLE);
   lStyle &= ~(WS_CAPTION | WS_THICKFRAME | WS_SYSMENU);
   SetWindowLong(m_hWnd, GWL_STYLE, lStyle);
   LONG lExStyle = GetWindowLong(m_hWnd, GWL_EXSTYLE);
   lExStyle &= ~(WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE);
   SetWindowLong(m_hWnd, GWL_EXSTYLE, lExStyle);
   SetWindowPos(NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
-
+*/
  ShowWindow(SW_RESTORE);
 
   return TRUE;
@@ -107,85 +117,6 @@ void DesktopAppDlg::OnPaint()
 HCURSOR DesktopAppDlg::OnQueryDragIcon()
 {
   return static_cast<HCURSOR>(m_hIcon);
-}
-
-void DesktopAppDlg::ReportToastNotification(_In_z_ LPCTSTR pszDetails, _In_ BOOL bAppend)
-{
-  if (bAppend)
-  {
-    int nLength = m_wndStatusMessages.GetWindowTextLength();
-    m_wndStatusMessages.SetSel(nLength, nLength);
-    m_wndStatusMessages.ReplaceSel(pszDetails);
-  }
-  else
-    m_wndStatusMessages.SetWindowText(pszDetails);
-}
-
-HRESULT DesktopAppDlg::VerifyXML(_Inout_ CString& sError)
-{
-  ATL::CComPtr<IXMLDOMDocument> xml;
-  HRESULT hr = xml.CoCreateInstance(__uuidof(DOMDocument60));
-  if (FAILED(hr))
-    return hr;
-  ATL::CComBSTR bstrXML(m_sPayload);
-  VARIANT_BOOL bSuccessfull = VARIANT_FALSE;
-  hr = xml->loadXML(bstrXML, &bSuccessfull);
-  if (FAILED(hr))
-    return hr;
-
-  if (bSuccessfull == VARIANT_FALSE)
-  {
-    ATL::CComPtr<IXMLDOMParseError> parseError;
-    hr = xml->get_parseError(&parseError);
-    if (FAILED(hr))
-      return hr;
-    ATL::CComBSTR bstrReason;
-    hr = parseError->get_reason(&bstrReason);
-    if (FAILED(hr))
-      return hr;
-    long nErrorCode = 0;
-    hr = parseError->get_errorCode(&nErrorCode);
-    if (FAILED(hr))
-      return hr;
-    long nLine = 0;
-    hr = parseError->get_line(&nLine);
-    if (FAILED(hr))
-      return hr;
-    long nLinePos = 0;
-    hr = parseError->get_linepos(&nLinePos);
-    if (FAILED(hr))
-      return hr;
-    long nFilePos = 0;
-    hr = parseError->get_filepos(&nFilePos);
-    if (FAILED(hr))
-      return hr;
-    sError.Format(_T("Error Code: %X, Line: %d, Line position: %d, File Position: %d, Reason: %s"), nErrorCode, nLine, nLinePos, nFilePos, ATL::CW2T(bstrReason.operator wchar_t*()).operator LPTSTR());
-    return E_FAIL;
-  }
-
-  return S_OK;
-}
-
-void DesktopAppDlg::OnChangePayload()
-{
-  if (!UpdateData(TRUE))
-    return;
-
-  CString sError;
-  HRESULT hr = VerifyXML(sError);
-  if (FAILED(hr))
-  {
-    CString sMsg;
-    sMsg.Format(_T("Failed to verify the XML. Error:%08X, %s\r\n"), hr, sError.GetString());
-    ReportToastNotification(sMsg, FALSE);
-  }
-  else
-    ReportToastNotification(_T("Toast content is valid XML\r\n"), FALSE);
-}
-
-void DesktopAppDlg::OnClickedClear()
-{
-  m_wndStatusMessages.SetWindowText(_T(""));
 }
 
 void DesktopAppDlg::OnSize(UINT nType, int cx, int cy)
@@ -226,19 +157,15 @@ void DesktopAppDlg::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS* lpncsp
 
 LRESULT DesktopAppDlg::OnNcHitTest(CPoint point)
 {
-	SetWindowLong(m_hWnd, DWL_MSGRESULT, HTCAPTION);
-	return S_OK;
+	return CDialogEx::OnNcHitTest(point);
 }
 
 BOOL DesktopAppDlg::OnNcActivate(BOOL bActive)
 {
-	OnNcPaint();
-	return TRUE;
+	return CDialogEx::OnNcActivate(bActive);
 }
 
 void DesktopAppDlg::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 {
 	CDialogEx::OnActivate(nState, pWndOther, bMinimized);
-
-	OnNcPaint();
 }

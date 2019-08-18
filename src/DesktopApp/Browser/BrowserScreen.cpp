@@ -45,6 +45,9 @@ namespace desktop { namespace ui{
 
 	BEGIN_MESSAGE_MAP(BrowserScreen, CDialog)
 		ON_WM_SIZE()
+		ON_NOTIFY_REFLECT_EX(WM_LBUTTONDOWN, OnReflect)
+		ON_NOTIFY_REFLECT_EX(WM_LBUTTONUP, OnReflect)
+		ON_NOTIFY_REFLECT_EX(WM_LBUTTONDBLCLK, OnReflect)
 		ON_MESSAGE(wm::browser::CEF_PRE_KEYBOARD_HOOK, OnKeyBoardHook)
 	END_MESSAGE_MAP()
 
@@ -165,5 +168,10 @@ namespace desktop { namespace ui{
 			::SetWindowPos(m_cefBrowser->GetHost()->GetWindowHandle(), NULL, 0, 0, cx, cy, SWP_NOMOVE | SWP_NOACTIVATE | SWP_NOZORDER);
 			m_cefBrowser->GetHost()->WasResized();
 		}
+	}
+
+	BOOL BrowserScreen::OnReflect(NMHDR * pNotifyStruct, LRESULT* result)
+	{
+		return FALSE;
 	}
 }}

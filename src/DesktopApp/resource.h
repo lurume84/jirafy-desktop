@@ -6,6 +6,7 @@
 #define IDD_BROWSER                     101
 #define IDR_MAINFRAME                   128
 #define IDD_TOASTPP_DIALOG              130
+#define IDR_ACCELERATOR1                136
 #define IDC_POP_TOAST                   1000
 #define IDC_CLEAR                       1001
 #define IDC_PAYLOADS                    1019
@@ -16,8 +17,8 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        132
-#define _APS_NEXT_COMMAND_VALUE         32771
+#define _APS_NEXT_RESOURCE_VALUE        137
+#define _APS_NEXT_COMMAND_VALUE         32772
 #define _APS_NEXT_CONTROL_VALUE         1022
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

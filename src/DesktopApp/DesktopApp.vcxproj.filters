@@ -80,6 +80,8 @@
     <ClInclude Include="Services\DownloadDesktopService.h">
       <Filter>Services</Filter>
     </ClInclude>
+    <ClInclude Include="FrameWindow.h" />
+    <ClInclude Include="DesktopAppFrame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Agents\NotificationAgent.cpp">
@@ -124,6 +126,8 @@
     <ClCompile Include="Services\DownloadDesktopService.cpp">
       <Filter>Services</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWindow.cpp" />
+    <ClCompile Include="DesktopAppFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DesktopApp.rc">
@@ -135,6 +139,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\logo.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
