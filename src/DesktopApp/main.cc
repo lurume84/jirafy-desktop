@@ -69,7 +69,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
   command_line->AppendSwitch(switches::kUseViews);
   command_line->AppendSwitch(switches::kHideFrame);
   command_line->AppendSwitch(switches::kHideControls);
-
+  command_line->AppendSwitchWithValue("disable-web-security", "true");
 
   // Create a ClientApp of the correct type.
   CefRefPtr<CefApp> app;
@@ -90,6 +90,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
   scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 
   CefSettings settings;
+  settings.remote_debugging_port = 8088;
 
 #if !defined(CEF_USE_SANDBOX)
   settings.no_sandbox = true;

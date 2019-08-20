@@ -24,6 +24,7 @@ void ClientAppBrowser::OnBeforeCommandLineProcessing(
 	  command_line->AppendSwitch(switches::kUseViews);
 	  command_line->AppendSwitch(switches::kHideFrame);
 	  command_line->AppendSwitch(switches::kHideControls);
+	  command_line->AppendSwitchWithValue("disable-web-security", "true");
 
     // Pass additional command-line flags when off-screen rendering is enabled.
     if (command_line->HasSwitch(switches::kOffScreenRenderingEnabled) &&

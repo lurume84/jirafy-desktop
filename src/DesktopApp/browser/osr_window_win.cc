@@ -714,6 +714,16 @@ void OsrWindowWin::OnKeyEvent(UINT message, WPARAM wParam, LPARAM lParam) {
     event.type = KEYEVENT_CHAR;
   event.modifiers = GetCefKeyboardModifiers(wParam, lParam);
 
+  switch (message)
+  {
+  case WM_KEYDOWN:
+	  if (wParam == VK_F5)
+	  {
+		  browser_->Reload();
+	  }
+	  break;
+  }
+
   browser_->GetHost()->SendKeyEvent(event);
 }
 

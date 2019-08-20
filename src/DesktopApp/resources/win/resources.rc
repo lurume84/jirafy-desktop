@@ -38,8 +38,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_CEFCLIENT           ICON                    "cefclient.ico"
-IDI_SMALL               ICON                    "small.ico"
+IDI_CEFCLIENT           ICON                    "logo.ico"
+IDI_SMALL               ICON                    "logo.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -130,12 +130,12 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "FileDescription", "Chromium Embedded Framework (CEF) Client Application"
+            VALUE "FileDescription", "Jirafy"
             VALUE "FileVersion", CEF_VERSION
-            VALUE "InternalName", "cefclient"
-            VALUE "LegalCopyright", "Copyright (C) " MAKE_STRING(COPYRIGHT_YEAR) " The Chromium Embedded Framework Authors"
-            VALUE "OriginalFilename", "cefclient.exe"
-            VALUE "ProductName", "Chromium Embedded Framework (CEF) Client Application"
+            VALUE "InternalName", "Jirafy"
+            VALUE "LegalCopyright", "Copyright (C) " MAKE_STRING(COPYRIGHT_YEAR) " Jirafy"
+            VALUE "OriginalFilename", "Jirafy.exe"
+            VALUE "ProductName", "Jirafy"
             VALUE "ProductVersion", CEF_VERSION
         END
     END

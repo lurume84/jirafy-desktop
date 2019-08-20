@@ -548,6 +548,16 @@ bool ClientHandler::OnPreKeyEvent(CefRefPtr<CefBrowser> browser,
     return true;
   }
 
+  if (os_event != NULL)
+  {
+	  if (os_event->wParam == VK_F5)
+	  {
+		  browser->Reload();
+
+		  return true;
+	  }
+  }
+
   return false;
 }
 
