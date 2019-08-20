@@ -1,23 +1,29 @@
-#include "stdafx.h"
-
 #include "DownloadViewerService.h"
 
-#include "Agents/NotificationAgent.h"
+//#include "Agents/NotificationAgent.h"
 #include "Events.h"
-#include "DesktopApp.h"
+//#include "DesktopApp.h"
 
 #include "DesktopCore\Upgrade\Events.h"
-#include "Toast\ToastEventHandler.h"
-#include "Toast\ToastCommandLineInfo.h"
-#include "Toast\ToastFactory.h"
+//#include "Toast\ToastEventHandler.h"
+//#include "Toast\ToastCommandLineInfo.h"
+//#include "Toast\ToastFactory.h"
 
 #include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
+
+
+#pragma warning(push)
+#pragma warning(disable : 4100)
+#pragma warning(disable : 4481)
+#include <cef/cef_app.h>
+#pragma warning(pop)
+
 
 #include <boost\filesystem\operations.hpp>
 
 namespace desktop { namespace ui { namespace service {
 
-	DownloadViewerService::DownloadViewerService(CefRefPtr<CefBrowser> browser, std::unique_ptr<core::service::EncodeStringService> encodeService, 
+	DownloadViewerService::DownloadViewerService(CefBrowser& browser, std::unique_ptr<core::service::EncodeStringService> encodeService,
 											std::unique_ptr<core::service::ApplicationDataService> applicationService)
 	: m_browser(browser)
 	, m_encodeService(std::move(encodeService))
@@ -42,7 +48,7 @@ namespace desktop { namespace ui { namespace service {
 
 			auto version = m_encodeService->utf8toUtf16(evt.m_version);
 			
-			toast::ToastFactory factory;
+			/*toast::ToastFactory factory;
 			
 			if (boost::filesystem::exists(m_applicationService->getViewerFolder() + "/index.html"))
 			{
@@ -70,12 +76,12 @@ namespace desktop { namespace ui { namespace service {
 				core::utils::patterns::Broker::get().publish(notificationEvt);
 
 				evt.m_callback();
-			}
+			}*/
 		}, core::events::DOWNLOAD_UPGRADE_EVENT);
 
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
-			m_browser->GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
+			m_browser.GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
 		}, desktop::core::events::UPGRADE_VIEWER_COMPLETED_EVENT);
 	}
 
@@ -87,7 +93,7 @@ namespace desktop { namespace ui { namespace service {
 
 		std::string script = "window.location = 'https://" + host + url.substr(pos) + "';";
 
-		m_browser->GetMainFrame()->ExecuteJavaScript(script, m_browser->GetMainFrame()->GetURL(), 0);
+		m_browser.GetMainFrame()->ExecuteJavaScript(script, m_browser.GetMainFrame()->GetURL(), 0);
 
 		std::unique_lock<std::mutex> lock(m_mutex);
 		m_cv.wait(lock);
