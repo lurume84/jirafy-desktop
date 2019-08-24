@@ -85,12 +85,13 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
   int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
   if (exit_code >= 0)
     return exit_code;
-
+  
   // Create the main context object.
   scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 
   CefSettings settings;
   settings.remote_debugging_port = 8088;
+  CefString(&settings.user_agent).FromString("JirafyBrowser");
 
 #if !defined(CEF_USE_SANDBOX)
   settings.no_sandbox = true;
