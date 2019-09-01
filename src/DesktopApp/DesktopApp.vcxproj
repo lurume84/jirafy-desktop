@@ -276,8 +276,10 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
     <ClCompile Include="renderer\performance_test_tests.cc" />
     <ClCompile Include="renderer\client_app_renderer.cc" />
     <ClInclude Include="renderer\client_app_renderer.h" />
+    <ClInclude Include="resources\win\resource.h" />
     <ClInclude Include="Services\DownloadDesktopService.h" />
     <ClInclude Include="Services\DownloadViewerService.h" />
+    <Image Include="resources\win\logo.ico" />
     <None Include="resources\extensions\set_page_color\README.md" />
     <Image Include="resources\extensions\set_page_color\icon.png" />
     <None Include="resources\extensions\set_page_color\manifest.json" />

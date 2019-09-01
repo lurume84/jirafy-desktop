@@ -417,11 +417,13 @@
     <ClInclude Include="Services\DownloadViewerService.h">
       <Filter>Services</Filter>
     </ClInclude>
+    <ClInclude Include="resources\win\resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\extensions\set_page_color\icon.png">
       <Filter>cef\resources\extensions\set_page_color</Filter>
     </Image>
+    <Image Include="resources\win\logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\extensions\set_page_color\README.md">

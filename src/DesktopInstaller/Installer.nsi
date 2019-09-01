@@ -27,7 +27,7 @@ VIAddVersionKey "FileDescription" "Jirafy Desktop"
 
   ;Name and file
   Name "Jirafy Desktop"
-  OutFile "../../bin/DesktopInstaller/JirafySetup.exe"
+  OutFile "../../bin/Release/DesktopInstaller/JirafySetup.exe"
 
   ;Default installation folder
   InstallDir "$LOCALAPPDATA\Jirafy Desktop"
@@ -67,7 +67,7 @@ Section "Desktop" SecDummy
   SetOutPath "$INSTDIR"
   File /x "*.pdb" /x "*.ipdb" /x "*.iobj" /x "*.lib" "..\..\bin\Release\DesktopApp\*.*"
   
-  File /oname=JirafyW7.exe "..\..\bin\Release\DesktopAppW7\Jirafy.exe"
+  ; File /oname=JirafyW7.exe "..\..\bin\Release\DesktopAppW7\Jirafy.exe"
   
   SetOutPath "$INSTDIR\Html"
   File /r "..\..\bin\Release\DesktopApp\Html\loading"
@@ -81,11 +81,11 @@ Section "Desktop" SecDummy
   ; Create application shortcut (first in installation dir to have the correct "start in" target)
   SetOutPath "$INSTDIR"
   
-  ${If} ${IsWin7}
-    CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\JirafyW7.exe"
-  ${Else} 
+  ; ${If} ${IsWin7}
+  ;   CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\JirafyW7.exe"
+  ; ${Else} 
     CreateShortCut "$INSTDIR\${PRODUCT_NAME}.lnk" "$INSTDIR\Jirafy.exe"
-  ${EndIf} 
+  ; ${EndIf} 
   
   ; Start menu entries
   SetOutPath "$SMPROGRAMS\${PRODUCT_NAME}\"
