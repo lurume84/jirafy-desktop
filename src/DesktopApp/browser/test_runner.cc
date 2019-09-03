@@ -312,7 +312,8 @@ void EndTracing(CefRefPtr<CefBrowser> browser) {
 
     void RunDialog() {
       static const char kDefaultFileName[] = "trace.txt";
-      std::string path = MainContext::Get()->GetDownloadPath(kDefaultFileName);
+	  bool showDialog;
+      std::string path = MainContext::Get()->GetDownloadPath(kDefaultFileName, showDialog);
       if (path.empty())
         path = kDefaultFileName;
 
@@ -368,7 +369,8 @@ void PrintToPDF(CefRefPtr<CefBrowser> browser) {
 
     void RunDialog() {
       static const char kDefaultFileName[] = "output.pdf";
-      std::string path = MainContext::Get()->GetDownloadPath(kDefaultFileName);
+	  bool showDialog;
+      std::string path = MainContext::Get()->GetDownloadPath(kDefaultFileName, showDialog);
       if (path.empty())
         path = kDefaultFileName;
 

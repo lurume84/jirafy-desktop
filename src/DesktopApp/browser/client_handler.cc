@@ -453,11 +453,13 @@ void ClientHandler::OnBeforeDownload(
     CefRefPtr<CefBrowser> browser,
     CefRefPtr<CefDownloadItem> download_item,
     const CefString& suggested_name,
-    CefRefPtr<CefBeforeDownloadCallback> callback) {
+    CefRefPtr<CefBeforeDownloadCallback> callback) 
+{
   CEF_REQUIRE_UI_THREAD();
-
+  bool showDialog;
+  std::string path = MainContext::Get()->GetDownloadPath(suggested_name, showDialog);
   // Continue the download and show the "Save As" dialog.
-  callback->Continue(MainContext::Get()->GetDownloadPath(suggested_name), true);
+  callback->Continue(path, showDialog);
 }
 
 void ClientHandler::OnDownloadUpdated(
@@ -466,10 +468,11 @@ void ClientHandler::OnDownloadUpdated(
     CefRefPtr<CefDownloadItemCallback> callback) {
   CEF_REQUIRE_UI_THREAD();
 
-  if (download_item->IsComplete()) {
-    test_runner::Alert(browser, "File \"" +
+  if (download_item->IsComplete()) 
+  {
+   /* test_runner::Alert(browser, "File \"" +
                                     download_item->GetFullPath().ToString() +
-                                    "\" downloaded successfully.");
+                                    "\" downloaded successfully.");*/
   }
 
   desktop::ui::events::DownloadStatusEvent evt;

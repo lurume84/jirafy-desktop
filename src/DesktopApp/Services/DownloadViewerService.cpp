@@ -42,46 +42,21 @@ namespace desktop { namespace ui { namespace service {
 
 		}, events::DOWNLOAD_STATUS_EVENT);
 
-		m_subscriber.subscribe([this](const core::utils::patterns::Event& rawEvt)
-		{
-			auto evt = static_cast<const core::events::DownloadUpgradeEvent&>(rawEvt);
-
-			auto version = m_encodeService->utf8toUtf16(evt.m_version);
-			
-			/*toast::ToastFactory factory;
-			
-			if (boost::filesystem::exists(m_applicationService->getViewerFolder() + "/index.html"))
-			{
-				auto callback = evt.m_callback;
-
-				auto notification = std::make_unique<core::model::Notification>([callback]()
-				{
-					return (theApp.m_toastAction == L"accept") ? callback() : true;
-				}, []() {return true; }, []() {return true; });
-
-				m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
-				m_toast = factory.getYesNo(L"Viewer upgrade", L"Version " + version + L" available", L"Download");
-
-				agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
-				core::utils::patterns::Broker::get().publish(notificationEvt);
-			}
-			else
-			{
-				auto notification = std::make_unique<core::model::Notification>([](){return true;}, [](){return true;}, [](){return true;});
-
-				m_handler = std::make_shared<toast::ToastEventHandler>(std::move(notification));
-				m_toast = factory.getBasic(L"Upgrading Viewer...", L"Version " + version + L"");
-
-				agent::NotificationAgent::ShowNotificationEvent notificationEvt(m_toast, m_handler);
-				core::utils::patterns::Broker::get().publish(notificationEvt);
-
-				evt.m_callback();
-			}*/
-		}, core::events::DOWNLOAD_UPGRADE_EVENT);
-
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
-			m_browser.GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
+			if (boost::filesystem::exists(m_applicationService->getViewerFolder() + "/index.html"))
+			{
+				auto evt = static_cast<const desktop::core::events::UpgradeViewerCompletedEvent&>(rawEvt);
+
+				std::stringstream ss;
+				ss << "$(document).trigger('upgrade', '" << evt.m_version << "');";
+
+				m_browser.GetMainFrame()->ExecuteJavaScript(ss.str(), "", 0);
+			}
+			else
+			{ 
+				m_browser.GetMainFrame()->LoadURL(boost::filesystem::canonical(m_applicationService->getViewerFolder() + "/index.html").string());
+			}
 		}, desktop::core::events::UPGRADE_VIEWER_COMPLETED_EVENT);
 	}
 

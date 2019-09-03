@@ -25,7 +25,7 @@ namespace desktop { namespace core { namespace agent {
 	, m_iniFileService(std::move(iniFileService))
 	, m_enabled(true)
 	{
-		armTimer(1);
+		armTimer(5);
 
 		boost::thread t(boost::bind(&boost::asio::io_service::run, &m_ioService));
 		m_backgroundThread.swap(t);
@@ -70,42 +70,33 @@ namespace desktop { namespace core { namespace agent {
 					{
 						auto url = tree.get_child("zipball_url").get_value<std::string>();
 
-						events::DownloadUpgradeEvent evt(version, [this, url, version]()
+						std::map<std::string, std::string> requestHeaders;
+						auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".zip");
+
+						if (path != "")
 						{
-							std::map<std::string, std::string> requestHeaders;
-							auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".zip");
+							events::ExtractUpgradeEvent evt(path);
+							utils::patterns::Broker::get().publish(evt);
 
-							if (path != "")
+							if (m_compressionService->extract("zip", path, m_inFolder))
 							{
-								events::ExtractUpgradeEvent evt(path);
-								utils::patterns::Broker::get().publish(evt);
+								auto target = boost::filesystem::path(m_inFolder);
 
-								if (m_compressionService->extract("zip", path, m_inFolder))
+								for (auto &it : boost::filesystem::directory_iterator(target))
 								{
-									auto target = boost::filesystem::path(m_inFolder);
-
-									for (auto &it : boost::filesystem::directory_iterator(target))
+									if (boost::filesystem::is_directory(it.path()))
 									{
-										if (boost::filesystem::is_directory(it.path()))
-										{
-											m_replaceFolderService->replace(it.path().string(), m_outFolder);
+										m_replaceFolderService->replace(it.path().string(), m_outFolder);
 
-											boost::filesystem::rename(path, m_inFolder + version + ".zip");
+										boost::filesystem::rename(path, m_inFolder + version + ".zip");
 
-											events::UpgradeViewerCompletedEvent evt(version);
-											utils::patterns::Broker::get().publish(evt);
-											break;
-										}
+										events::UpgradeViewerCompletedEvent evt(version);
+										utils::patterns::Broker::get().publish(evt);
+										break;
 									}
 								}
 							}
-
-							armTimer();
-
-							return true;
-						});
-
-						utils::patterns::Broker::get().publish(evt);
+						}
 					}
 				}
 				catch (std::exception& /*e*/)

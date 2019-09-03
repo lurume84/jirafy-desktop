@@ -23,7 +23,7 @@ class MainContextImpl : public MainContext {
 
   // MainContext members.
   std::string GetConsoleLogPath() OVERRIDE;
-  std::string GetDownloadPath(const std::string& file_name) OVERRIDE;
+  std::string GetDownloadPath(const std::string& file_name, bool& showDialog) OVERRIDE;
   std::string GetAppWorkingDirectory() OVERRIDE;
   std::string GetMainURL() OVERRIDE;
   cef_color_t GetBackgroundColor() OVERRIDE;

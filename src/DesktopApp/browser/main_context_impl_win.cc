@@ -9,23 +9,38 @@
 
 #include "DesktopCore\System\Services\ApplicationDataService.h"
 
+#include <boost\filesystem\path.hpp>
+
 namespace client {
 
-std::string MainContextImpl::GetDownloadPath(const std::string& file_name) {
-  TCHAR szFolderPath[MAX_PATH];
+std::string MainContextImpl::GetDownloadPath(const std::string& file_name, bool& showDialog) 
+{
   std::string path;
 
-  // Save the file in the user's "My Documents" folder.
-  if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, NULL,
-                                0, szFolderPath))) {
-    path = CefString(szFolderPath);
-    path += "\\" + file_name;
+  boost::filesystem::path p(file_name);
+
+  if (p.extension() == ".zip")
+  {
+	  desktop::core::service::ApplicationDataService service;
+	  auto documents = service.getMyDocuments();
+	  path = documents + "Download\\Versions\\" + p.filename().string();
+
+	  showDialog = false;
   }
+  else
+  {
+	  TCHAR szFolderPath[MAX_PATH];
+	  
+	  // Save the file in the user's "My Documents" folder.
+	  if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_PERSONAL | CSIDL_FLAG_CREATE, NULL,
+									0, szFolderPath))) {
+		path = CefString(szFolderPath);
+		path += "\\" + file_name;
+	  }
 
-  desktop::core::service::ApplicationDataService service;
-  auto documents = service.getMyDocuments();
-  return documents + "Download\\Versions\\";
-
+	  showDialog = true;
+  }
+  
   return path;
 }
 

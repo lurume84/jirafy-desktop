@@ -27,7 +27,7 @@ class MainContext {
   virtual std::string GetConsoleLogPath() = 0;
 
   // Returns the full path to |file_name|.
-  virtual std::string GetDownloadPath(const std::string& file_name) = 0;
+  virtual std::string GetDownloadPath(const std::string& file_name, bool& showDialog) = 0;
 
   // Returns the app working directory including trailing path separator.
   virtual std::string GetAppWorkingDirectory() = 0;
