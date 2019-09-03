@@ -186,9 +186,11 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Agents\ToastifyHotKeyAgent.cpp" />
     <ClCompile Include="browser\binding_test.cc" />
     <ClCompile Include="Services\DownloadDesktopService.cpp" />
     <ClCompile Include="Services\DownloadViewerService.cpp" />
+    <ClInclude Include="Agents\ToastifyHotKeyAgent.h" />
     <ClInclude Include="browser\binding_test.h" />
     <ClCompile Include="browser\browser_window.cc" />
     <ClInclude Include="browser\browser_window.h" />

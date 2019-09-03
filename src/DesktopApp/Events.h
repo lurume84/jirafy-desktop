@@ -49,4 +49,16 @@ namespace desktop { namespace ui { namespace events {
 
 		CefBrowser& m_browser;
 	};
+
+	const sup::EventType TOASTIFY_EVENT = "TOASTIFY_EVENT";
+	struct ToastifyEvent : public sup::Event
+	{
+		ToastifyEvent(long code)
+			:m_code(code)
+		{
+			m_name = TOASTIFY_EVENT;
+		}
+
+		long m_code;
+	};
 }}}

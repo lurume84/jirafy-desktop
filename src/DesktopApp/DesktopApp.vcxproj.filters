@@ -212,6 +212,9 @@
     <ClCompile Include="Services\DownloadViewerService.cpp">
       <Filter>Services</Filter>
     </ClCompile>
+    <ClCompile Include="Agents\ToastifyHotKeyAgent.cpp">
+      <Filter>Agents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="browser\binding_test.h">
@@ -418,6 +421,9 @@
       <Filter>Services</Filter>
     </ClInclude>
     <ClInclude Include="resources\win\resource.h" />
+    <ClInclude Include="Agents\ToastifyHotKeyAgent.h">
+      <Filter>Agents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\extensions\set_page_color\icon.png">
@@ -472,6 +478,9 @@
     </Filter>
     <Filter Include="Services">
       <UniqueIdentifier>{53b255fa-dd9f-4b48-a67e-47012e393765}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Agents">
+      <UniqueIdentifier>{5234f1ff-dda8-4b61-b783-5b76711254d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

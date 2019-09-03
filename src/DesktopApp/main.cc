@@ -25,6 +25,7 @@
 #include "DesktopCore\Upgrade\Agents\UpgradeDesktopAgent.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeViewerAgent.h"
 #include "DesktopCore\Network\Agents\FileServerAgent.h"
+#include "Agents\ToastifyHotKeyAgent.h"
 //#include "Services\DownloadDesktopService.h"
 #include "Services\DownloadViewerService.h"
 
@@ -69,6 +70,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
   command_line->AppendSwitch(switches::kUseViews);
   command_line->AppendSwitch(switches::kHideFrame);
   command_line->AppendSwitch(switches::kHideControls);
+  command_line->AppendSwitch(switches::kExternalMessagePump);
   command_line->AppendSwitchWithValue("disable-web-security", "true");
 
   // Create a ClientApp of the correct type.
@@ -92,6 +94,8 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
   CefSettings settings;
   settings.remote_debugging_port = 8088;
   CefString(&settings.user_agent).FromString("JirafyBrowser");
+
+  settings.external_message_pump = true;
 
 #if !defined(CEF_USE_SANDBOX)
   settings.no_sandbox = true;
@@ -146,7 +150,8 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 	  auto &browser = evt.m_browser;
 
 	  core.initialize();
-
+	  
+	  core.addAgent(std::make_unique<desktop::ui::agent::ToastifyHotKeyAgent>(browser));
 	  core.addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
 	  core.addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
   }, desktop::ui::events::BROWSER_CREATED_EVENT);

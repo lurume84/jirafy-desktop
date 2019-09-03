@@ -9,6 +9,9 @@
 #include "cef/cef_app.h"
 #include "browser/util_win.h"
 
+#include "Events.h"
+#include "DesktopCore\Utils\Patterns\PublisherSubscriber\Broker.h"
+
 namespace client {
 
 namespace {
@@ -84,6 +87,12 @@ int MainMessageLoopExternalPumpWin::Run() {
   while (GetMessage(&msg, NULL, 0, 0)) {
     TranslateMessage(&msg);
     DispatchMessage(&msg);
+
+	if (msg.message == 0x0319)
+	{
+		desktop::ui::events::ToastifyEvent evt(msg.lParam);
+		desktop::core::utils::patterns::Broker::get().publish(evt);
+	}
   }
 
   KillTimer();
