@@ -44,10 +44,10 @@ namespace desktop { namespace ui { namespace service {
 
 		m_subscriber.subscribe([this](const desktop::core::utils::patterns::Event& rawEvt)
 		{
-			if (boost::filesystem::exists(m_applicationService->getViewerFolder() + "/index.html"))
+			auto evt = static_cast<const desktop::core::events::UpgradeViewerCompletedEvent&>(rawEvt);
+			
+			if (!evt.m_fresh)
 			{
-				auto evt = static_cast<const desktop::core::events::UpgradeViewerCompletedEvent&>(rawEvt);
-
 				std::stringstream ss;
 				ss << "$(document).trigger('upgrade', '" << evt.m_version << "');";
 
