@@ -1,7 +1,15 @@
 # Jirafy desktop
 This application is the container of [Jirafy Viewer](https://github.com/lurume84/jirafy-viewer) project. It is a chrome-based application (CEF) that loads viewer seamlessly and provides local storage capabilities.
 
-Jirafy is a time tracker for JIRA Agile that mimics Spotify's frontend. Songs are Tasks, Albums are User Stories, Artists are Assignees and music player is the Time Tracker. Work needs to be commited but tasks are automatically assigned to user when a task is started.
+Jirafy is a time tracker for JIRA Agile that mimics Spotify's frontend:
+
+* Songs are Tasks
+* Albums are User Stories
+* Artists are Assignees
+* Music player is the Time Tracker
+* Song Popularity is Task progress
+
+Work needs to be commited but tasks are automatically assigned to user when a task is started.
 
 # Examples
 
