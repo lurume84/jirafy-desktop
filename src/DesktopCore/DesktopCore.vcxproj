@@ -143,12 +143,11 @@
     <ClCompile Include="System\Services\EncodeStringService.cpp" />
     <ClCompile Include="System\Services\FileInfoService.cpp" />
     <ClCompile Include="System\Services\FileIOService.cpp" />
-    <ClCompile Include="System\Services\CopyFolderService.cpp" />
+    <ClCompile Include="System\Services\FolderOperationService.cpp" />
     <ClCompile Include="System\Services\IniFileService.cpp" />
     <ClCompile Include="System\Services\Process\CreateProcessService.cpp" />
     <ClCompile Include="System\Services\Process\LifeTimeProcessService.cpp" />
     <ClCompile Include="System\Services\Process\TerminateProcessService.cpp" />
-    <ClCompile Include="System\Services\ReplaceFolderService.cpp" />
     <ClCompile Include="System\Services\TimestampFolderService.cpp" />
     <ClCompile Include="System\Services\TimeZoneService.cpp" />
     <ClCompile Include="Upgrade\Agents\UpgradeDesktopAgent.cpp" />
@@ -178,12 +177,11 @@
     <ClInclude Include="System\Services\EncodeStringService.h" />
     <ClInclude Include="System\Services\FileInfoService.h" />
     <ClInclude Include="System\Services\FileIOService.h" />
-    <ClInclude Include="System\Services\CopyFolderService.h" />
+    <ClInclude Include="System\Services\FolderOperationService.h" />
     <ClInclude Include="System\Services\IniFileService.h" />
     <ClInclude Include="System\Services\Process\CreateProcessService.h" />
     <ClInclude Include="System\Services\Process\LifeTimeProcessService.h" />
     <ClInclude Include="System\Services\Process\TerminateProcessService.h" />
-    <ClInclude Include="System\Services\ReplaceFolderService.h" />
     <ClInclude Include="System\Services\TimestampFolderService.h" />
     <ClInclude Include="System\Services\TimeZoneService.h" />
     <ClInclude Include="Upgrade\Agents\UpgradeDesktopAgent.h" />

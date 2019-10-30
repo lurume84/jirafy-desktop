@@ -14,13 +14,13 @@ namespace desktop { namespace core { namespace agent {
 											std::unique_ptr<service::ApplicationDataService> applicationService,
 											std::unique_ptr<service::HTTPClientService> clientService,
 											std::unique_ptr<service::CompressionService> compressionService,
-											std::unique_ptr<service::ReplaceFolderService> replaceFolderService)
+											std::unique_ptr<service::FolderOperationService> folderOperationService)
 	: m_ioService()
 	, m_timer(m_ioService, boost::posix_time::seconds(60 * 10))
 	, m_downloadService(std::move(downloadService))
 	, m_clientService(std::move(clientService))
 	, m_compressionService(std::move(compressionService))
-	, m_replaceFolderService(std::move(replaceFolderService))
+	, m_folderOperationService(std::move(folderOperationService))
 	, m_applicationService(std::move(applicationService))
 	, m_iniFileService(std::move(iniFileService))
 	, m_enabled(true)

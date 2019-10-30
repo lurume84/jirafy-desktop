@@ -1,11 +1,11 @@
-#include "CopyFolderService.h"
+#include "FolderOperationService.h"
 
 #include <boost/filesystem.hpp>
 
 namespace desktop { namespace core { namespace service {
 
-	CopyFolderService::CopyFolderService() = default;
-	CopyFolderService::~CopyFolderService() = default;
+	FolderOperationService::FolderOperationService() = default;
+	FolderOperationService::~FolderOperationService() = default;
 
 	namespace
 	{
@@ -36,12 +36,42 @@ namespace desktop { namespace core { namespace service {
 		}
 	}
 
-	bool CopyFolderService::copy(const std::string& input, const std::string& output) const
+	bool FolderOperationService::copy(const std::string& input, const std::string& output) const
 	{
 		try
 		{
 			recursiveCopy(input, output);
 			return true;
+		}
+		catch (...)
+		{
+			return false;
+		}
+	}
+
+	bool FolderOperationService::replace(const std::string& input, const std::string& output) const
+	{
+		try
+		{
+			if (boost::filesystem::exists(output))
+			{
+				boost::filesystem::remove_all(output);
+			}
+
+			boost::system::error_code ec;
+			boost::filesystem::rename(input, output, ec);
+
+			if (ec)
+			{
+				auto res = copy(input, output);
+				boost::filesystem::remove_all(input);
+
+				return res;
+			}
+			else
+			{
+				return true;
+			}
 		}
 		catch (...)
 		{

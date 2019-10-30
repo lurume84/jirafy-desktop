@@ -71,9 +71,6 @@
     <ClCompile Include="System\Services\FileIOService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
-    <ClCompile Include="System\Services\ReplaceFolderService.cpp">
-      <Filter>System\Services</Filter>
-    </ClCompile>
     <ClCompile Include="System\Services\EncodeStringService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
       <Filter>System\Services</Filter>
     </ClCompile>
     <ClCompile Include="System\Services\ApplicationDataService.cpp">
-      <Filter>System\Services</Filter>
-    </ClCompile>
-    <ClCompile Include="System\Services\CopyFolderService.cpp">
       <Filter>System\Services</Filter>
     </ClCompile>
     <ClCompile Include="System\Services\IniFileService.cpp">
@@ -118,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="Network\Agents\FileServerAgent.cpp">
       <Filter>Network\Agents</Filter>
+    </ClCompile>
+    <ClCompile Include="System\Services\FolderOperationService.cpp">
+      <Filter>System\Services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,9 +153,6 @@
     <ClInclude Include="System\Services\FileIOService.h">
       <Filter>System\Services</Filter>
     </ClInclude>
-    <ClInclude Include="System\Services\ReplaceFolderService.h">
-      <Filter>System\Services</Filter>
-    </ClInclude>
     <ClInclude Include="Network\Services\IDownloadFileService.h">
       <Filter>Network\Services</Filter>
     </ClInclude>
@@ -175,9 +169,6 @@
       <Filter>Network\Model</Filter>
     </ClInclude>
     <ClInclude Include="System\Services\ApplicationDataService.h">
-      <Filter>System\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="System\Services\CopyFolderService.h">
       <Filter>System\Services</Filter>
     </ClInclude>
     <ClInclude Include="System\Services\IniFileService.h">
@@ -221,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="Network\Agents\FileServerAgent.h">
       <Filter>Network\Agents</Filter>
+    </ClInclude>
+    <ClInclude Include="System\Services\FolderOperationService.h">
+      <Filter>System\Services</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
