@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-
+#include <malloc.h>
 #include <boost/filesystem.hpp>
 
 namespace desktop { namespace core { namespace service {
