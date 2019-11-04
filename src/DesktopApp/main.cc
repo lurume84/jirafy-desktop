@@ -153,6 +153,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 	  
 	  core.addAgent(std::make_unique<desktop::ui::agent::ToastifyHotKeyAgent>(browser));
 	  core.addAgent(std::make_unique<desktop::core::agent::UpgradeViewerAgent>(std::make_unique<desktop::ui::service::DownloadViewerService>(browser)));
+	  core.addAgent(std::make_unique<desktop::core::agent::UpgradeDesktopAgent>(std::make_unique<desktop::core::service::DownloadFileService>()));
 	  core.addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
   }, desktop::ui::events::BROWSER_CREATED_EVENT);
 

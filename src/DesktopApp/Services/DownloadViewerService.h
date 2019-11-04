@@ -33,6 +33,7 @@ namespace desktop {
 							std::unique_ptr<core::service::ApplicationDataService> applicationService = std::make_unique<core::service::ApplicationDataService>(),
 							std::unique_ptr<core::service::IniFileService> iniFileService = std::make_unique<core::service::IniFileService>());
 		~DownloadViewerService();
+		std::string download(const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 		std::string download(const std::string& host, const std::string& url, std::map<std::string, std::string> requestHeaders, const std::string &folder) const override;
 	private:
 		CefBrowser&	m_browser;

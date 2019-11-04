@@ -68,25 +68,24 @@ namespace desktop { namespace core { namespace agent {
 
 					if (!boost::filesystem::exists(m_inFolder + version + ".exe"))
 					{
-						auto url = tree.get_child("browser_download_url").get_value<std::string>();
-
-						events::DownloadUpgradeEvent evt(version, [this, url, version]()
+						auto assets = tree.get_child("assets");
+						
+						for (auto asset : assets)
 						{
-							std::map<std::string, std::string> requestHeaders;
-							auto path = m_downloadService->download(m_host, url, requestHeaders, m_inFolder + version + ".exe");
+							auto url = asset.second.get_child("browser_download_url").get_value<std::string>();
 
-							if (path != "")
+							if (url.find_first_of("Setup.exe") != std::string::npos)
 							{
-								events::UpgradeDesktopCompletedEvent evt(version);
-								utils::patterns::Broker::get().publish(evt);
+								std::map<std::string, std::string> requestHeaders;
+								auto path = m_downloadService->download(url, requestHeaders, m_inFolder + version + ".exe");
+
+								if (path != "")
+								{
+									events::UpgradeDesktopCompletedEvent evt(version);
+									utils::patterns::Broker::get().publish(evt);
+								}
 							}
-
-							armTimer();
-
-							return true;
-						});
-
-						utils::patterns::Broker::get().publish(evt);
+						}
 					}
 				}
 				catch (std::exception& /*e*/)
