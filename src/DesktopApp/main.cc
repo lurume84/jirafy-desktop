@@ -175,7 +175,7 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 	  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	  std::wstring message = converter.from_bytes(ss.str());
 
-	  const int result = MessageBox(NULL, message.c_str(), L"Jirafy upgrade", MB_YESNOCANCEL);
+	  const int result = MessageBox(NULL, message.c_str(), L"Jirafy upgrade", MB_YESNO);
 
 	  switch (result)
 	  {
@@ -183,7 +183,6 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 			  ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
 			  break;
 		  case IDNO:
-		  case IDCANCEL:
 			  break;
 	  }
   }, desktop::core::events::UPGRADE_DESKTOP_COMPLETED_EVENT);

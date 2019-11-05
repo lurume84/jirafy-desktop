@@ -72,9 +72,11 @@ namespace desktop { namespace core { namespace agent {
 						
 						for (auto asset : assets)
 						{
-							auto url = asset.second.get_child("browser_download_url").get_value<std::string>();
+							std::string url = asset.second.get_child("browser_download_url").get_value<std::string>();
 
-							if (url.find_first_of("Setup.exe") != std::string::npos)
+							size_t pos = url.find("Setup.exe");
+
+							if (pos != std::string::npos)
 							{
 								std::map<std::string, std::string> requestHeaders;
 								auto path = m_downloadService->download(url, requestHeaders, m_inFolder + version + ".exe");
