@@ -24,10 +24,18 @@
 #include "DesktopCore\System\Services\CrashReportService.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeDesktopAgent.h"
 #include "DesktopCore\Upgrade\Agents\UpgradeViewerAgent.h"
+#include "DesktopCore\Upgrade\Events.h"
 #include "DesktopCore\Network\Agents\FileServerAgent.h"
 #include "Agents\ToastifyHotKeyAgent.h"
-//#include "Services\DownloadDesktopService.h"
 #include "Services\DownloadViewerService.h"
+
+#include <locale>
+#include <codecvt>
+#include <string>
+#include <shlobj.h>
+#include <shlwapi.h>
+#include <objbase.h>
+#include <shellapi.h>
 
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
@@ -156,6 +164,29 @@ int RunMain(HINSTANCE hInstance, int nCmdShow)
 	  core.addAgent(std::make_unique<desktop::core::agent::UpgradeDesktopAgent>(std::make_unique<desktop::core::service::DownloadFileService>()));
 	  core.addAgent(std::make_unique<desktop::core::agent::FileServerAgent>());
   }, desktop::ui::events::BROWSER_CREATED_EVENT);
+
+  subscriber.subscribe([](const desktop::core::utils::patterns::Event& rawEvt)
+  {
+	  auto evt = static_cast<const desktop::core::events::UpgradeDesktopCompletedEvent&>(rawEvt);
+
+	  std::stringstream ss;
+	  ss << "Jirafy " << evt.m_version << " is available, do you want to install it?";
+
+	  std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	  std::wstring message = converter.from_bytes(ss.str());
+
+	  const int result = MessageBox(NULL, message.c_str(), L"Jirafy upgrade", MB_YESNOCANCEL);
+
+	  switch (result)
+	  {
+		  case IDYES:
+			  ShellExecuteA(nullptr, "open", evt.m_path.c_str(), nullptr, nullptr, SW_SHOW);
+			  break;
+		  case IDNO:
+		  case IDCANCEL:
+			  break;
+	  }
+  }, desktop::core::events::UPGRADE_DESKTOP_COMPLETED_EVENT);
 
   // Create the first window.
   context->GetRootWindowManager()->CreateRootWindow(window_config);

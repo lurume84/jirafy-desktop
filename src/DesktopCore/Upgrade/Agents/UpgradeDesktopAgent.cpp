@@ -81,7 +81,7 @@ namespace desktop { namespace core { namespace agent {
 
 								if (path != "")
 								{
-									events::UpgradeDesktopCompletedEvent evt(version);
+									events::UpgradeDesktopCompletedEvent evt(version, path);
 									utils::patterns::Broker::get().publish(evt);
 								}
 							}
