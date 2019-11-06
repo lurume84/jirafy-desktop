@@ -11,7 +11,6 @@
 #include "cef/cef_dom.h"
 #include "cef/wrapper/cef_helpers.h"
 #include "cef/wrapper/cef_message_router.h"
-#include "browser/window_test_runner_win.h"
 
 namespace client {
 namespace renderer {
@@ -20,6 +19,8 @@ namespace {
 
 // Must match the value in client_handler.cc.
 const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
+const char kMinimizeMessage[] = "ClientRenderer.Minimize";
+const char kMaximizeMessage[] = "ClientRenderer.Maximize";
 const char kMinimizeWindow[] = "minimize";
 const char kMaximizeWindow[] = "maximize";
 
@@ -32,19 +33,15 @@ public:
 	{
 		if (name == kMinimizeWindow)
 		{
-			scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
-				new window_test::WindowTestRunnerWin());
-
 			CefRefPtr<CefBrowser> browser = CefV8Context::GetCurrentContext()->GetBrowser();
-			test_runner->Minimize(browser);
+			CefRefPtr<CefProcessMessage> message = CefProcessMessage::Create(kMinimizeMessage);
+			browser->SendProcessMessage(PID_BROWSER, message);
 		}
 		else if (name == kMaximizeWindow)
 		{
-			scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
-				new window_test::WindowTestRunnerWin());
-
 			CefRefPtr<CefBrowser> browser = CefV8Context::GetCurrentContext()->GetBrowser();
-			test_runner->Maximize(browser);
+			CefRefPtr<CefProcessMessage> message = CefProcessMessage::Create(kMaximizeMessage);
+			browser->SendProcessMessage(PID_BROWSER, message);
 		}
 
 		return true;
