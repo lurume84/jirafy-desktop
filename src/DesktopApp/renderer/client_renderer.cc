@@ -11,6 +11,7 @@
 #include "cef/cef_dom.h"
 #include "cef/wrapper/cef_helpers.h"
 #include "cef/wrapper/cef_message_router.h"
+#include "browser/window_test_runner_win.h"
 
 namespace client {
 namespace renderer {
@@ -19,6 +20,39 @@ namespace {
 
 // Must match the value in client_handler.cc.
 const char kFocusedNodeChangedMessage[] = "ClientRenderer.FocusedNodeChanged";
+const char kMinimizeWindow[] = "minimize";
+const char kMaximizeWindow[] = "maximize";
+
+class V8Handler : public CefV8Handler {
+public:
+	V8Handler(CefRefPtr<CefBrowser> browser) : m_browser(browser){}
+
+	virtual bool Execute(const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments,
+		CefRefPtr<CefV8Value>& retval, CefString& exception) OVERRIDE
+	{
+		if (name == kMinimizeWindow)
+		{
+			scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
+				new window_test::WindowTestRunnerWin());
+
+			test_runner->Minimize(m_browser);
+		}
+		else if (name == kMaximizeWindow)
+		{
+			scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
+				new window_test::WindowTestRunnerWin());
+
+			test_runner->Maximize(m_browser);
+		}
+
+		return true;
+	}
+
+private:
+	IMPLEMENT_REFCOUNTING(V8Handler);
+
+	CefRefPtr<CefBrowser> m_browser;
+};
 
 class ClientRenderDelegate : public ClientAppRenderer::Delegate {
  public:
@@ -49,6 +83,19 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
                         CefRefPtr<CefFrame> frame,
                         CefRefPtr<CefV8Context> context) OVERRIDE {
     message_router_->OnContextCreated(browser, frame, context);
+
+	CefRefPtr<CefV8Value> object = context->GetGlobal();
+
+	CefRefPtr<CefV8Handler> handler = new V8Handler(browser);
+
+	// Bind test functions.
+	object->SetValue(kMinimizeWindow,
+		CefV8Value::CreateFunction(kMinimizeWindow, handler),
+		V8_PROPERTY_ATTRIBUTE_READONLY);
+
+	object->SetValue(kMaximizeWindow,
+		CefV8Value::CreateFunction(kMaximizeWindow, handler),
+		V8_PROPERTY_ATTRIBUTE_READONLY);
   }
 
   void OnContextReleased(CefRefPtr<ClientAppRenderer> app,
