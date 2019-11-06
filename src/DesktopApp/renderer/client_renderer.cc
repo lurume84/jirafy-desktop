@@ -25,7 +25,7 @@ const char kMaximizeWindow[] = "maximize";
 
 class V8Handler : public CefV8Handler {
 public:
-	V8Handler(CefRefPtr<CefBrowser> browser) : m_browser(browser){}
+	V8Handler(){}
 
 	virtual bool Execute(const CefString& name, CefRefPtr<CefV8Value> object, const CefV8ValueList& arguments,
 		CefRefPtr<CefV8Value>& retval, CefString& exception) OVERRIDE
@@ -35,14 +35,16 @@ public:
 			scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
 				new window_test::WindowTestRunnerWin());
 
-			test_runner->Minimize(m_browser);
+			CefRefPtr<CefBrowser> browser = CefV8Context::GetCurrentContext()->GetBrowser();
+			test_runner->Minimize(browser);
 		}
 		else if (name == kMaximizeWindow)
 		{
 			scoped_ptr<window_test::WindowTestRunnerWin> test_runner(
 				new window_test::WindowTestRunnerWin());
 
-			test_runner->Maximize(m_browser);
+			CefRefPtr<CefBrowser> browser = CefV8Context::GetCurrentContext()->GetBrowser();
+			test_runner->Maximize(browser);
 		}
 
 		return true;
@@ -50,8 +52,6 @@ public:
 
 private:
 	IMPLEMENT_REFCOUNTING(V8Handler);
-
-	CefRefPtr<CefBrowser> m_browser;
 };
 
 class ClientRenderDelegate : public ClientAppRenderer::Delegate {
@@ -86,7 +86,7 @@ class ClientRenderDelegate : public ClientAppRenderer::Delegate {
 
 	CefRefPtr<CefV8Value> object = context->GetGlobal();
 
-	CefRefPtr<CefV8Handler> handler = new V8Handler(browser);
+	CefRefPtr<CefV8Handler> handler = new V8Handler();
 
 	// Bind test functions.
 	object->SetValue(kMinimizeWindow,
