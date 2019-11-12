@@ -7,6 +7,7 @@
 
 !include "MUI2.nsh"
 !include "WinVer.nsh"
+!include "LogicLib.nsh"
 
 !define MUI_ICON "..\..\src\DesktopUI\img\logo2.ico"
 !define MUI_HEADERIMAGE
@@ -63,6 +64,14 @@ VIAddVersionKey "FileDescription" "Jirafy Desktop"
 ;Installer Sections
 
 Section "Desktop" SecDummy
+
+    nsExec::ExecToStack "cmd.exe /C tasklist /nh /fi $\"IMAGENAME eq Jirafy.exe$\" | find /i $\"Jirafy.exe$\""
+    Pop $0
+    Pop $1
+    
+    ${If} $1 != ""
+      MessageBox MB_ICONEXCLAMATION|MB_OK "Jirafy is running, close it before proceeding" /SD IDOK
+    ${EndIf}
 
   SetOutPath "$INSTDIR"
   File /x "*.pdb" /x "*.ipdb" /x "*.iobj" /x "*.lib" "..\..\bin\Release\DesktopApp\*.*"
