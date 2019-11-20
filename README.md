@@ -11,14 +11,14 @@ Jirafy is a time tracker for JIRA Agile that mimics Spotify's frontend:
 
 Work needs to be commited but tasks are automatically assigned to user when a task is started.
 
+# Motivation
+Applications based on frontend-backend can transgress its expected lifetime. This is an experiment of a complete frontend reutilization thanks to HTML and REST APIs. A reinterpretation of Spotify concepts leads to a new application purpose.
+
 # Examples
 
 ![](README/jirafy_1.png)
 ![](README/jirafy_2.png)
 ![](README/jirafy_3.png)
-
-# Motivation
-Applications based on frontend-backend can transgress its expected lifetime. This is an experiment of a complete frontend reutilization thanks to HTML and REST APIs. A reinterpretation of Spotify concepts leads to a new application purpose.
 
 ## What it does
 
