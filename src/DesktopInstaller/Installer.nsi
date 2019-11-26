@@ -26,7 +26,7 @@ VIAddVersionKey "FileDescription" "Jirafy Desktop"
 ;--------------------------------
 ;General
 
-  !system 'md "../../bin/Release/DesktopInstaller/"'
+  !system 'if not exist "../../bin/Release/DesktopInstaller/" md "../../bin/Release/DesktopInstaller/"'
 
   ;Name and file
   Name "Jirafy Desktop"

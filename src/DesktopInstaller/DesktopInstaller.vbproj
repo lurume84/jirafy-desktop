@@ -73,4 +73,10 @@
   <Target Name="Build">
     <TaskRunner Condition="'$(Configuration)'=='Release'" App="C:\Program Files (x86)\NSIS\makensis.exe" Args="Installer.nsi" />
   </Target>
+  <Target Name="GetTargetFrameworks" Returns="@(_ThisProjectBuildMetadata)">
+    <ItemGroup>
+      <_ThisProjectBuildMetadata Include="$(MSBuildProjectFullPath)" TargetFrameworks="$(TargetFramework)" HasSingleTargetFramework="true" IsRidAgnostic="true" />
+    </ItemGroup>
+  </Target>
+  <Target Name="GetNativeManifest" />
 </Project>

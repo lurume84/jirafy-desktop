@@ -1,5 +1,6 @@
-@call "%VS140COMNTOOLS%VsDevCmd.bat"
+rmdir /s /q build
 mkdir build
 cd build
-cmake ..
+cmake -G "Visual Studio 15 2017" -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . --config Release
 pause

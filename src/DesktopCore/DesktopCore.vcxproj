@@ -70,12 +70,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\..\lib\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\int\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(ProjectDir)\..\..\lib\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(ProjectDirDir)\..\..\int\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\..\lib\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\int\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(ProjectDir)\..\..\lib\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(ProjectDirDir)\..\..\int\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -85,7 +85,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\include;$(ProjectDir);$(SolutionDir)../include/cpprestsdk;$(SolutionDir)../src/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..;$(ProjectDir)../..;$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\cpprestsdk</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PreprocessorDefinitions>_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\include;$(ProjectDir);$(SolutionDir)../include/cpprestsdk;$(SolutionDir)../src/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..;$(ProjectDir)../..;$(ProjectDir)..\..\include;$(ProjectDir)..\..\include\cpprestsdk</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <PreprocessorDefinitions>_WIN32_WINNT=0x0601;%(PreprocessorDefinitions)</PreprocessorDefinitions>
