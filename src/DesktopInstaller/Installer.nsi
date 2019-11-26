@@ -26,6 +26,8 @@ VIAddVersionKey "FileDescription" "Jirafy Desktop"
 ;--------------------------------
 ;General
 
+  !system 'md "../../bin/Release/DesktopInstaller/"'
+
   ;Name and file
   Name "Jirafy Desktop"
   OutFile "../../bin/Release/DesktopInstaller/JirafySetup.exe"

@@ -38,14 +38,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)..\int\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Jirafy</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\bin\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\int\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)..\int\$(Configuration)\$(ProjectName)\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Jirafy</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
@@ -59,7 +59,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>./;$(SolutionDir)/include/;$(SolutionDir)/src/;$(SolutionDir);$(ProjectDir);$(SolutionDir)/include/cpprestsdk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)../include/;$(SolutionDir);$(ProjectDir);$(SolutionDir)../include/cpprestsdk;$(SolutionDir)..;$(SolutionDir)../src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -94,19 +94,19 @@
     <PostBuildEvent>
       <Message>
       </Message>
-      <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s /d
-xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d</Command>
+      <Command>xcopy $(SolutionDir)..\lib\cef\$(Configuration) $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\cef\Resources $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\openssl\$(Configuration)\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\src\DesktopUI\*.* $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\crashsender\$(Configuration)\* $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\vc-redist\$(Configuration)\* $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\cpprestsdk\Release\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>cpprest_2_10d.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib;libcef.lib;libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;d3d11.lib;glu32.lib;imm32.lib;opengl32.lib;oleacc.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration);$(SolutionDir)\lib\cpprestsdk\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lib\cef\$(Configuration);$(SolutionDir)..\lib\boost\$(Configuration);$(SolutionDir)..\lib\$(Configuration)\DesktopCore;$(SolutionDir)..\lib\openssl\$(Configuration);$(SolutionDir)..\lib\sevenzip\$(Configuration);$(SolutionDir)..\lib/7zip/Static/$(Configuration);$(SolutionDir)..\lib\crashrpt\$(Configuration);$(SolutionDir)..\lib\cpprestsdk\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -123,7 +123,7 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>./;$(SolutionDir)/include/;$(SolutionDir)/src/;$(SolutionDir);$(ProjectDir);$(SolutionDir)/include/cpprestsdk;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;$(SolutionDir)../include/;$(SolutionDir);$(ProjectDir);$(SolutionDir)../include/cpprestsdk;$(SolutionDir)..;$(SolutionDir)../src/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -158,19 +158,19 @@ xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configurat
     <PostBuildEvent>
       <Message>
       </Message>
-      <Command>xcopy $(SolutionDir)lib\cef\$(Configuration) $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\cef\Resources $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\openssl\$(Configuration)\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)src\DesktopUI\*.* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s /d
-xcopy $(SolutionDir)lib\crashsender\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\vc-redist\$(Configuration)\* $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
-xcopy $(SolutionDir)lib\cpprestsdk\Release\*.dll $(SolutionDir)\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d</Command>
+      <Command>xcopy $(SolutionDir)..\lib\cef\$(Configuration) $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\cef\Resources $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\openssl\$(Configuration)\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\7zip\Dynamic\Release\Format7z\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\7zip\Dynamic\Release\Format7zF\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\src\DesktopUI\*.* $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\Html\loading /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\crashsender\$(Configuration)\* $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\vc-redist\$(Configuration)\* $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d
+xcopy $(SolutionDir)..\lib\cpprestsdk\Release\*.dll $(SolutionDir)..\bin\$(Configuration)\$(ProjectName)\ /e /i /y /s /d</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>cpprest_2_10.lib;libeay32.lib;ssleay32.lib;version.lib;CrashRpt.lib;runtimeobject.lib;libcef.lib;libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;d3d11.lib;glu32.lib;imm32.lib;opengl32.lib;oleacc.lib;cef_sandbox.lib;dbghelp.lib;psapi.lib;version.lib;wbemuuid.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\cef\$(Configuration);$(SolutionDir)\lib\boost\$(Configuration);$(SolutionDir)\lib\$(Configuration)\DesktopCore;$(SolutionDir)\lib\openssl\$(Configuration);$(SolutionDir)\lib\sevenzip\$(Configuration);$(SolutionDir)/lib/7zip/Static/$(Configuration);$(SolutionDir)\lib\crashrpt\$(Configuration);$(SolutionDir)\lib\cpprestsdk\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\lib\cef\$(Configuration);$(SolutionDir)..\lib\boost\$(Configuration);$(SolutionDir)..\lib\$(Configuration)\DesktopCore;$(SolutionDir)..\lib\openssl\$(Configuration);$(SolutionDir)..\lib\sevenzip\$(Configuration);$(SolutionDir)..\lib/7zip/Static/$(Configuration);$(SolutionDir)..\lib\crashrpt\$(Configuration);$(SolutionDir)..\lib\cpprestsdk\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
