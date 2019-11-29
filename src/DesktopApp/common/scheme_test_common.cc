@@ -4,14 +4,15 @@
 
 #include "common/scheme_test_common.h"
 
-#include "cef/cef_scheme.h"
+#include "include/cef_scheme.h"
 
 namespace client {
 namespace scheme_test {
 
 void RegisterCustomSchemes(CefRawPtr<CefSchemeRegistrar> registrar,
                            std::vector<CefString>& cookiable_schemes) {
-  registrar->AddCustomScheme("client", true, false, false, false, true, false);
+  
+	registrar->AddCustomScheme("client", CEF_SCHEME_OPTION_STANDARD | CEF_SCHEME_OPTION_CORS_ENABLED);
 }
 
 }  // namespace scheme_test

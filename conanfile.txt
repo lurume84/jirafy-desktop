@@ -1,0 +1,12 @@
+[requires]
+boost_chrono/1.69.0@bincrafters/stable
+boost_date_time/1.69.0@bincrafters/stable
+boost_filesystem/1.69.0@bincrafters/stable
+boost_regex/1.69.0@bincrafters/stable
+boost_thread/1.69.0@bincrafters/stable
+boost_asio/1.69.0@bincrafters/stable
+boost_property_tree/1.69.0@bincrafters/stable
+boost_signals2/1.69.0@bincrafters/stable
+cef/3.3683.1920.g9f41a27@bincrafters/testing
+[generators]
+cmake

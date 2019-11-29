@@ -13,7 +13,7 @@ namespace switches {
 // Chromium source code to identify other existing command-line switches.
 // Below is a partial listing of relevant *_switches.cc files:
 //   base/base_switches.cc
-//   cef/libcef/common/cef_switches.cc
+//   include/libcef/common/cef_switches.cc
 //   chrome/common/chrome_switches.cc (not all apply)
 //   content/public/common/content_switches.cc
 

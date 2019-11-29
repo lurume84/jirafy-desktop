@@ -4,8 +4,8 @@
 
 #include "browser/client_app_browser.h"
 
-#include "cef/base/cef_logging.h"
-#include "cef/cef_cookie.h"
+#include "include/base/cef_logging.h"
+#include "include/cef_cookie.h"
 #include "browser/main_message_loop_external_pump.h"
 #include "common/client_switches.h"
 
@@ -32,7 +32,7 @@ void ClientAppBrowser::OnBeforeCommandLineProcessing(
       // Use software rendering and compositing (disable GPU) for increased FPS
       // and decreased CPU usage. This will also disable WebGL so remove these
       // switches if you need that capability.
-      // See https://bitbucket.org/chromiumembedded/cef/issues/1257 for details.
+      // See https://bitbucket.org/chromiumembedded/include/issues/1257 for details.
       if (!command_line->HasSwitch(switches::kEnableGPU)) {
         command_line->AppendSwitch("disable-gpu");
         command_line->AppendSwitch("disable-gpu-compositing");
