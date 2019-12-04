@@ -6,7 +6,7 @@
 
 #include <string>
 #include <map>
-#include <cpprestsdk/cpprest/http_msg.h>
+#include <cpprest/http_msg.h>
 
 namespace web { namespace http { namespace experimental { namespace listener { class http_listener; } } } }
 

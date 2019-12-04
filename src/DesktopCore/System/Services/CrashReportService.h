@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include <crashrpt\CrashRpt.h>
+#include <crashrpt/CrashRpt.h>
 
 namespace desktop { namespace core { namespace service {
 	class CrashReportService

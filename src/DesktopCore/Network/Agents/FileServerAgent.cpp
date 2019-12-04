@@ -6,7 +6,7 @@
 
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
-#include <cpprestsdk/cpprest/http_listener.h>
+#include <cpprest/http_listener.h>
 #include <cpprest\filestream.h>
 
 namespace desktop { namespace core { namespace agent {

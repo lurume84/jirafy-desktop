@@ -8,5 +8,8 @@ boost_asio/1.69.0@bincrafters/stable
 boost_property_tree/1.69.0@bincrafters/stable
 boost_signals2/1.69.0@bincrafters/stable
 cef/3.3683.1920.g9f41a27@bincrafters/testing
+OpenSSL/1.0.2n@conan/stable
+cpprestsdk/2.10.14@bincrafters/stable
+CrashRpt/1.4.3@lurume84/stable
 [generators]
 cmake

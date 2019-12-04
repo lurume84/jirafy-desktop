@@ -93,9 +93,9 @@ source_group("Sources" FILES ${SRC_FILES})
 source_group("Headers" FILES ${HEADERS_FILES})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    link_directories(${CMAKE_SOURCE_DIR}/lib/cef/Debug ${CMAKE_SOURCE_DIR}/lib/openssl/Debug ${CMAKE_SOURCE_DIR}/lib/sevenzip/Debug ${CMAKE_SOURCE_DIR}/lib/7zip/Static/Debug ${CMAKE_SOURCE_DIR}/lib/crashrpt/Debug ${CMAKE_SOURCE_DIR}/lib/cpprestsdk/Debug)
+    link_directories(${CMAKE_SOURCE_DIR}/lib/cef/Debug ${CMAKE_SOURCE_DIR}/lib/openssl/Debug ${CMAKE_SOURCE_DIR}/lib/sevenzip/Debug ${CMAKE_SOURCE_DIR}/lib/7zip/Static/Debug ${CMAKE_SOURCE_DIR}/lib/cpprestsdk/Debug)
 else()
-    link_directories(${CMAKE_SOURCE_DIR}/lib/cef/Release ${CMAKE_SOURCE_DIR}/lib/openssl/Release ${CMAKE_SOURCE_DIR}/lib/sevenzip/Release ${CMAKE_SOURCE_DIR}/lib/7zip/Static/Release ${CMAKE_SOURCE_DIR}/lib/crashrpt/Release ${CMAKE_SOURCE_DIR}/lib/cpprestsdk/Release)
+    link_directories(${CMAKE_SOURCE_DIR}/lib/cef/Release ${CMAKE_SOURCE_DIR}/lib/openssl/Release ${CMAKE_SOURCE_DIR}/lib/sevenzip/Release ${CMAKE_SOURCE_DIR}/lib/7zip/Static/Release ${CMAKE_SOURCE_DIR}/lib/cpprestsdk/Release)
 endif()
 
 # Add executable to build.
@@ -185,11 +185,22 @@ if(MSVC)
             ${CMAKE_SOURCE_DIR}/src/DesktopUI/
             ${CMAKE_EXECUTABLE_OUTPUT_DIRECTORY}/Html/loading
     )
+    
+    add_custom_command(
+        TARGET ${PROJECT_NAME} 
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CONAN_BIN_DIRS_CEF}
+            ${CMAKE_EXECUTABLE_OUTPUT_DIRECTORY}
+    )
+    
+    add_custom_command(
+        TARGET ${PROJECT_NAME} 
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CONAN_BIN_DIRS_CRASHRPT}
+            ${CMAKE_EXECUTABLE_OUTPUT_DIRECTORY}
+    )
 
-    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        target_link_libraries(${PROJECT_NAME} cpprest_2_10d.lib)
-    else()
-        target_link_libraries(${PROJECT_NAME} cpprest_2_10.lib)
-    endif()
-   target_link_libraries(${PROJECT_NAME} libeay32.lib ssleay32.lib version.lib CrashRpt.lib runtimeobject.lib comctl32.lib rpcrt4.lib shlwapi.lib ws2_32.lib d3d11.lib glu32.lib imm32.lib opengl32.lib oleacc.lib dbghelp.lib psapi.lib version.lib wbemuuid.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib )
+   target_link_libraries(${PROJECT_NAME} version.lib runtimeobject.lib comctl32.lib rpcrt4.lib shlwapi.lib ws2_32.lib d3d11.lib glu32.lib imm32.lib opengl32.lib oleacc.lib dbghelp.lib psapi.lib version.lib wbemuuid.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib )
 endif(MSVC)
