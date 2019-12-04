@@ -10,9 +10,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Startup 1
+      run: |
+        mkdir build
+    - name: Startup 2
+      run: |
+        cd build
+    - name: Conan install
+      run: |
+        conan install ..
     - name: Cmake configure
       run: |
-        cmake -G "Visual Studio 16 2019" .
+        cmake -DCMAKE_BUILD_TYPE=Release ..
     - name: Build (MSVC)
       run: |
-        cmake --build .
+        cmake --build . --config Release
