@@ -10,7 +10,7 @@ install:
 
 build_script:
   - cmmd: mkdir build
-  - cmmd: conan install . -o gtest:shared=True
+  - cmmd: conan install .
   - cmmd: cd build
-  - cmmd: cmake ../ -DBUILD_TEST=TRUE -G "Visual Studio 15 2017"
+  - cmmd: cmake .. -G "Visual Studio 15 2017"
   - cmmd: cmake --build . --config Release
