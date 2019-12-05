@@ -12,6 +12,6 @@ OpenSSL/1.0.2n@conan/stable
 cpprestsdk/2.10.14@bincrafters/stable
 CrashRpt/1.4.3@lurume84/stable
 7zip-cpp/0.2.0@lurume84/stable
-7zip/19.00@_/_
+7zip/15.12.0@lurume84/stable
 [generators]
 cmake

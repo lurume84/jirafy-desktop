@@ -83,7 +83,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
    -D_WIN32_WINNT=0x0601 
     )
     if(MSVC)
-        target_compile_options(${PROJECT_NAME} PRIVATE  /W3 /MD /Od /EHsc)
+        target_compile_options(${PROJECT_NAME} PRIVATE  /W3 /Od /EHsc)
     endif()
 endif()
 

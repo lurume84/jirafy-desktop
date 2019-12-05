@@ -196,5 +196,13 @@ if(MSVC)
             ${CMAKE_EXECUTABLE_OUTPUT_DIRECTORY}
     )
 
+    add_custom_command(
+        TARGET ${PROJECT_NAME} 
+        POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CONAN_BIN_DIRS_7ZIP}
+            ${CMAKE_EXECUTABLE_OUTPUT_DIRECTORY}
+    )
+
    target_link_libraries(${PROJECT_NAME} version.lib runtimeobject.lib comctl32.lib rpcrt4.lib shlwapi.lib ws2_32.lib d3d11.lib glu32.lib imm32.lib opengl32.lib oleacc.lib dbghelp.lib psapi.lib version.lib wbemuuid.lib winmm.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib )
 endif(MSVC)
