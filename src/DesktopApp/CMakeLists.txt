@@ -92,12 +92,6 @@ file(GLOB_RECURSE HEADERS_FILES "*.h")
 source_group("Sources" FILES ${SRC_FILES})
 source_group("Headers" FILES ${HEADERS_FILES})
 
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    link_directories(${CMAKE_SOURCE_DIR}/lib/cef/Debug ${CMAKE_SOURCE_DIR}/lib/openssl/Debug ${CMAKE_SOURCE_DIR}/lib/sevenzip/Debug ${CMAKE_SOURCE_DIR}/lib/7zip/Static/Debug ${CMAKE_SOURCE_DIR}/lib/cpprestsdk/Debug)
-else()
-    link_directories(${CMAKE_SOURCE_DIR}/lib/cef/Release ${CMAKE_SOURCE_DIR}/lib/openssl/Release ${CMAKE_SOURCE_DIR}/lib/sevenzip/Release ${CMAKE_SOURCE_DIR}/lib/7zip/Static/Release ${CMAKE_SOURCE_DIR}/lib/cpprestsdk/Release)
-endif()
-
 # Add executable to build.
 add_executable(${PROJECT_NAME} WIN32 ${SRC_FILES} ${HEADERS_FILES})
 
