@@ -1,17 +1,16 @@
-version: 1.0.{build}
-    platform:
-      - x86
+platform:
+  - x86
 
-    install:
-      - cmmd: echo "Downloading conan..."
-      - cmmd: set PATH=%PATH%;%PYTHON%/Scripts/
-      - cmmd: pip.exe install conan
-      - cmmd: conan user # Create the conan data directory
-      - cmmd: conan --version
+install:
+  - cmmd: echo "Downloading conan..."
+  - cmmd: set PATH=%PATH%;%PYTHON%/Scripts/
+  - cmmd: pip.exe install conan
+  - cmmd: conan user # Create the conan data directory
+  - cmmd: conan --version
 
-    build_script:
-      - cmmd: mkdir build
-      - cmmd: conan install . -o gtest:shared=True
-      - cmmd: cd build
-      - cmmd: cmake ../ -DBUILD_TEST=TRUE -G "Visual Studio 15 2017"
-      - cmmd: cmake --build . --config Release
+build_script:
+  - cmmd: mkdir build
+  - cmmd: conan install . -o gtest:shared=True
+  - cmmd: cd build
+  - cmmd: cmake ../ -DBUILD_TEST=TRUE -G "Visual Studio 15 2017"
+  - cmmd: cmake --build . --config Release
