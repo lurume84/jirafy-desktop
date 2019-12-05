@@ -1,21 +1,17 @@
-build: false
+version: 1.0.{build}
+    platform:
+      - x86
 
-environment:
-    PYTHON_HOME: "C:\\Python37"
+    install:
+      - cmmd: echo "Downloading conan..."
+      - cmmd: set PATH=%PATH%;%PYTHON%/Scripts/
+      - cmmd: pip.exe install conan
+      - cmmd: conan user # Create the conan data directory
+      - cmmd: conan --version
 
-    matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-          CONAN_VISUAL_VERSIONS: 15
-          CONAN_BUILD_TYPES: Release
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-          CONAN_VISUAL_VERSIONS: 15
-          CONAN_BUILD_TYPES: Debug
-
-install:
-  - set PATH=%PYTHON_HOME%;%PYTHON_HOME%/Scripts/;%PATH%
-  - pip.exe install conan --upgrade
-  - pip.exe install conan_package_tools bincrafters_package_tools
-  - conan user # It creates the conan data directory
-
-test_script:
-  - python build.py
+    build_script:
+      - cmmd: mkdir build
+      - cmmd: conan install . -o gtest:shared=True
+      - cmmd: cd build
+      - cmmd: cmake ../ -DBUILD_TEST=TRUE -G "Visual Studio 15 2017"
+      - cmmd: cmake --build . --config Release
