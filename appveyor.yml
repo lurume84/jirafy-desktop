@@ -26,3 +26,8 @@ build_script:
   - cmd: conan install .. --profile ../profiles/ProfileWin32MT
   - cmd: cmake -DCMAKE_BUILD_TYPE=Release ..
   - cmd: cmake --build . --config Release
+  - cmd: 7z a Jirafy.zip bin\Release\DesktopApp\*
+  
+  artifacts:
+  - path: Jirafy.zip
+    name: Jirafy
