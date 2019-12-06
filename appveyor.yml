@@ -22,7 +22,7 @@ install:
 
 build_script:
   - ps: ./version.ps1
-  - cmd: mkdir build & cd build
+  - cmd: mkdir build
   - cmd: ./build.bat
   - cmd: cd ..
   - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
