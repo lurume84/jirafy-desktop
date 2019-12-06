@@ -21,11 +21,9 @@ install:
   - cmd: conan remote add conan-lurume84 https://api.bintray.com/conan/lurume84/public-conan
 
 build_script:
-  - cmd: mkdir build
-  - cmd: cd build  
-  - cmd: conan install .. --profile ../profiles/ProfileWin32MT
-  - cmd: cmake -DCMAKE_BUILD_TYPE=Release ..
-  - cmd: cmake --build . --config Release
+  - ps: version.ps1
+  - cmd: mkdir build & cd build
+  - cmd: build.bat
   - cmd: cd ..
   - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
   - cmd: 7z a bin\Release\DesktopApp\PDBs.7z bin\Release\DesktopApp\*.pdb
