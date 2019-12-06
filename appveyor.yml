@@ -23,7 +23,7 @@ install:
 build_script:
   - ps: ./version.ps1
   - cmd: mkdir build & cd build
-  - cmd: build.bat
+  - cmd: ./build.bat
   - cmd: cd ..
   - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
   - cmd: 7z a bin\Release\DesktopApp\PDBs.7z bin\Release\DesktopApp\*.pdb
