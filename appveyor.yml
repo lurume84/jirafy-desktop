@@ -30,4 +30,4 @@ build_script:
   
   artifacts:
   - path: Jirafy.zip
-    name: Jirafy
+  - name: Jirafy
