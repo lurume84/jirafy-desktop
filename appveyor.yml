@@ -26,8 +26,9 @@ build_script:
   - cmd: conan install .. --profile ../profiles/ProfileWin32MT
   - cmd: cmake -DCMAKE_BUILD_TYPE=Release ..
   - cmd: cmake --build . --config Release
-  - cmd: 7z a %APPVEYOR_BUILD_FOLDER%\Jirafy.zip %APPVEYOR_BUILD_FOLDER%\bin\Release\DesktopApp\*
+  - cmd: cd ..
+  - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
   
 artifacts:
-  - path: Jirafy.zip
+  - path: bin\Release\DesktopInstaller\JirafySetup.exe
     name: Jirafy
