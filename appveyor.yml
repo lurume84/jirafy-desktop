@@ -28,7 +28,10 @@ build_script:
   - cmd: cmake --build . --config Release
   - cmd: cd ..
   - cmd: makensis.exe src\DesktopInstaller\Installer.nsi
+  - cmd: 7z a bin\Release\DesktopApp\PDBs.7z bin\Release\DesktopApp\*.pdb
   
 artifacts:
   - path: bin\Release\DesktopInstaller\JirafySetup.exe
     name: Jirafy
+  - path: bin\Release\DesktopApp\PDBs.7z
+    name: PDBs
