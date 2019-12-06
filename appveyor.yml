@@ -28,6 +28,6 @@ build_script:
   - cmd: cmake --build . --config Release
   - cmd: 7z a Jirafy.zip bin\Release\DesktopApp\*
   
-  artifacts:
+artifacts:
   - path: Jirafy.zip
   - name: Jirafy
