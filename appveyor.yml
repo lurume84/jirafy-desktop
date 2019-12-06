@@ -14,6 +14,6 @@ install:
 build_script:
   - cmd: mkdir build
   - cmd: cd build  
-  - cmd: conan install .. --profile ./profiles/ProfileWin32MT
+  - cmd: conan install .. --profile ../profiles/ProfileWin32MT
   - cmd: cmake -DCMAKE_BUILD_TYPE=Release ..
   - cmd: cmake --build . --config Release
