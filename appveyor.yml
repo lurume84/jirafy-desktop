@@ -10,6 +10,10 @@ install:
 
 build_script:
   - cmd: mkdir build
+  - cmd: conan remote add conan-center https://conan.bintray.com
+  - cmd: conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
+  - cmd: conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
+  - cmd: conan remote add conan-lurume84 https://api.bintray.com/conan/lurume84/public-conan
   - cmd: conan install .
   - cmd: cd build
   - cmd: cmake -DCMAKE_BUILD_TYPE=Release ..
