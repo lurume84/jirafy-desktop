@@ -29,5 +29,5 @@ build_script:
   - cmd: 7z a %APPVEYOR_BUILD_FOLDER%\Jirafy.zip %APPVEYOR_BUILD_FOLDER%\bin\Release\DesktopApp\*
   
 artifacts:
-  - path: %APPVEYOR_BUILD_FOLDER%\bin\Release\DesktopApp\Jirafy.zip
+  - path: Jirafy.zip
     name: Jirafy
