@@ -80,7 +80,7 @@ endif()
 # Preprocessor definitions
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(${PROJECT_NAME} PRIVATE 
-   -D_WIN32_WINNT=0x0601 
+   -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 
     )
     if(MSVC)
         target_compile_options(${PROJECT_NAME} PRIVATE  /W3 /Od /EHsc)
@@ -89,7 +89,7 @@ endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     target_compile_definitions(${PROJECT_NAME} PRIVATE 
-   -D_WIN32_WINNT=0x0601 
+   -DWINVER=0x0601 -D_WIN32_WINNT=0x0601 
     )
     if(MSVC)
         target_compile_options(${PROJECT_NAME} PRIVATE  /W3 /GL /Oi /Gy /EHsc)
