@@ -7,6 +7,7 @@ compiler=Visual Studio
 compiler.version=15
 compiler.runtime=MT
 build_type=Release
+
 [options]
 [build_requires]
 [env]
