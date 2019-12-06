@@ -13,7 +13,7 @@ build_script:
   - cmd: conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
   - cmd: conan remote add conan-community https://api.bintray.com/conan/conan-community/conan
   - cmd: conan remote add conan-lurume84 https://api.bintray.com/conan/lurume84/public-conan
-  - cmd: conan install .
+  - cmd: conan install . --profile ./profiles/ProfileWin32MT
   - cmd: cd build
   - cmd: cmake -DCMAKE_BUILD_TYPE=Release ..
   - cmd: cmake --build . --config Release
