@@ -12,5 +12,5 @@ build_script:
   - cmmd: mkdir build
   - cmmd: conan install .
   - cmmd: cd build
-  - cmmd: cmake .. -G "Visual Studio 15 2017"
+  - cmmd: cmake -DCMAKE_BUILD_TYPE=Release ..
   - cmmd: cmake --build . --config Release
