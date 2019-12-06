@@ -3,6 +3,7 @@
 #include <boost/filesystem.hpp>
 #include <windows.h>
 #include <sstream>
+#include <Shlobj.h>
 #include <shlobj_core.h>
 
 namespace desktop { namespace core { namespace service {
