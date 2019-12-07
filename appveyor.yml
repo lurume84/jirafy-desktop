@@ -21,7 +21,7 @@ install:
   - cmd: conan remote add conan-lurume84 https://api.bintray.com/conan/lurume84/public-conan
 
 build_script:
-  - ps: ./version.ps1 %APPVEYOR_BUILD_NUMBER%
+  - ps: ./version.ps1 $Env:APPVEYOR_BUILD_NUMBER
   - cmd: mkdir build
   - cmd: ./build.bat
   - cmd: cd ..
