@@ -48,7 +48,7 @@ Contains the downloaded viewer. This is automatically stepped over by viewer upd
 This is the file you need to modify to configure your desktop application.
 
 ## Development Guide
-You need vs2017. Checkout and uncompress third_party.7z in the same folder.
+You need vs2017, CMake and Conan. Checkout and execute build.bat
 
 ## Compatibility
 Windows is the only platform supported at this time. If application does not start up install last Visual Studio Redistributables.
