@@ -86,14 +86,17 @@ endif()
 # Files of project and target to build                     #
 ############################################################
 
-file(GLOB_RECURSE SRC_FILES "*.cpp" "*.cc" "*.rc")
-file(GLOB_RECURSE HEADERS_FILES "*.h")
-
-source_group("Sources" FILES ${SRC_FILES})
-source_group("Headers" FILES ${HEADERS_FILES})
+file(GLOB_RECURSE SRC_FILES "*.cpp" "*.cc" "*.rc" "*.h")
 
 # Add executable to build.
-add_executable(${PROJECT_NAME} WIN32 ${SRC_FILES} ${HEADERS_FILES})
+add_executable(${PROJECT_NAME} WIN32 ${SRC_FILES})
+
+foreach(FILE ${SRC_FILES}) 
+    get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
+    string(REPLACE "/" "\\" GROUP "${GROUP}")
+    source_group("${GROUP}" FILES "${FILE}")
+endforeach()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "Jirafy")
 

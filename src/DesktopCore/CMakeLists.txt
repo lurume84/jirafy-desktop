@@ -52,16 +52,19 @@ message("${PROJECT_NAME}: CURR BIN DIR: ${CMAKE_CURRENT_BINARY_DIR}")
 # Files of project and target to build                     #
 ############################################################
 
-file(GLOB_RECURSE SRC_FILES ${PROJECT_DIR}/*.cpp)
-file(GLOB_RECURSE HEADERS_FILES ${PROJECT_DIR}/*.h)
-
-source_group("Sources" FILES ${SRC_FILES})
-source_group("Headers" FILES ${HEADERS_FILES})
+file(GLOB_RECURSE SRC_FILES "*.cpp" ".h")
 
 # Add library to build.
 add_library(${PROJECT_NAME} STATIC
-   ${SRC_FILES} ${HEADERS_FILES}
+   ${SRC_FILES}
 )
+
+foreach(FILE ${SRC_FILES}) 
+    get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
+    string(REPLACE "/" "\\" GROUP "${GROUP}")
+    source_group("${GROUP}" FILES "${FILE}")
+endforeach()
 
 ######################### Flags ############################
 # Defines Flags for Windows and Linux                      #
