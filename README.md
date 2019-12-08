@@ -1,3 +1,5 @@
+[![Build Status AppVeyor](https://ci.appveyor.com/api/projects/status/github/lurume84/jirafy-desktop?svg=true)](https://ci.appveyor.com/project/lurume84/jirafy-desktop)
+
 # Jirafy desktop
 This application is the container of [Jirafy Viewer](https://github.com/lurume84/jirafy-viewer) project. It is a chrome-based application (CEF) that loads viewer seamlessly and provides local storage capabilities.
 
